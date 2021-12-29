@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common';
 import { DeleteResult, EntityRepository, Repository } from 'typeorm';
 import { CreateTaskDto } from './models/create-task.dto';
 import { GetTasksFilterDto } from './models/get-tasks-filter.dto';

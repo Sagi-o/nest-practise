@@ -1,3 +1,8 @@
+import { CreateTaskDto } from './models/create-task.dto';
+import { Task } from './models/task.model';
+import { TasksService } from './tasks.service';
+import { UpdateTaskDto } from './models/update-task.dto';
+import { GetTasksFilterDto } from './models/get-tasks-filter.dto';
 import {
   Body,
   Controller,
@@ -8,11 +13,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { CreateTaskDto } from './models/create-task.dto';
-import { Task } from './models/task.model';
-import { TasksService } from './tasks.service';
-import { UpdateTaskDto } from './models/update-task.dto';
-import { GetTasksFilterDto } from './models/get-tasks-filter.dto';
 
 @Controller('tasks')
 export class TasksController {

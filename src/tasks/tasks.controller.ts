@@ -12,9 +12,12 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('tasks')
+@UseGuards(AuthGuard() /* Add 'jwt' inside constructor of AuthGuard? */)
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 

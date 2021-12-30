@@ -47,8 +47,8 @@ export class TasksRepository extends Repository<TaskEntity> {
     return await this.getTasksWithFilters(filterDto, user);
   }
 
-  async getTaskById(id: string): Promise<TaskEntity> {
-    return await this.findOne(id);
+  async getTaskById(id: string, user: UserEntity): Promise<TaskEntity> {
+    return await this.findOne({ where: { id, user } });
   }
 
   async createTask(
@@ -74,8 +74,9 @@ export class TasksRepository extends Repository<TaskEntity> {
   async updateTask(
     id: string,
     updateTaskDto: UpdateTaskDto,
+    user: UserEntity,
   ): Promise<TaskEntity> {
-    const task = this.getTaskById(id);
+    const task = this.getTaskById(id, user);
 
     if (!task) {
       return task;
@@ -83,7 +84,7 @@ export class TasksRepository extends Repository<TaskEntity> {
 
     await this.update(id, updateTaskDto);
 
-    return this.getTaskById(id);
+    return this.getTaskById(id, user);
   }
 
   async deleteTask(id: string): Promise<DeleteResult> {

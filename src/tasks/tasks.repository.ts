@@ -8,20 +8,23 @@ import { TaskEntity } from './task.entity';
 
 @EntityRepository(TaskEntity)
 export class TasksRepository extends Repository<TaskEntity> {
-  async getAllTasks(): Promise<TaskEntity[]> {
-    return await this.find();
+  async getAllTasks(user: UserEntity): Promise<TaskEntity[]> {
+    return await this.find(user);
   }
 
   async getTasksWithFilters(
     filterDto: GetTasksFilterDto,
+    user: UserEntity,
   ): Promise<TaskEntity[]> {
     const { status, search } = filterDto;
 
     if (!status && !search) {
-      return this.getAllTasks();
+      return this.getAllTasks(user);
     }
 
     const query = this.createQueryBuilder('task');
+
+    query.where({ user });
 
     if (status) {
       query.andWhere('task.status = :status', { status: TaskStatus.OPEN });
@@ -37,8 +40,11 @@ export class TasksRepository extends Repository<TaskEntity> {
     return query.getMany();
   }
 
-  async getTasks(filterDto: GetTasksFilterDto): Promise<TaskEntity[]> {
-    return await this.getTasksWithFilters(filterDto);
+  async getTasks(
+    filterDto: GetTasksFilterDto,
+    user: UserEntity,
+  ): Promise<TaskEntity[]> {
+    return await this.getTasksWithFilters(filterDto, user);
   }
 
   async getTaskById(id: string): Promise<TaskEntity> {

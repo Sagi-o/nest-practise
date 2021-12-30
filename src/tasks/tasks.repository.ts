@@ -87,7 +87,7 @@ export class TasksRepository extends Repository<TaskEntity> {
     return this.getTaskById(id, user);
   }
 
-  async deleteTask(id: string): Promise<DeleteResult> {
-    return await this.delete(id);
+  async deleteTask(id: string, user: UserEntity): Promise<DeleteResult> {
+    return await this.delete({ id, user });
   }
 }

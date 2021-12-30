@@ -1,4 +1,4 @@
-import { PG_UNIQUE_VIOLATION } from 'src/shared/postgres-error-codes';
+import { PG_UNIQUE_VIOLATION } from '../shared/postgres-error-codes';
 import { EntityRepository, Repository } from 'typeorm';
 import { AuthCredentialsDto } from './models/auth-credentials.dto';
 import { UserEntity } from './user.entity';
